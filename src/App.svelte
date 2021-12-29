@@ -1,4 +1,5 @@
 <script>
+  import Dashboard from './components/Dashboard.svelte'
 </script>
 
 <svelte:head>
@@ -11,6 +12,8 @@
   />
 </svelte:head>
 
-<main class="w-screen min-h-screen">
-  <h1>Time Tracking Dashboard</h1>
+<main
+  class="w-screen min-h-screen grid place-items-center bg-cstm-neutral-very-dark-blue"
+>
+  <Dashboard />
 </main>
