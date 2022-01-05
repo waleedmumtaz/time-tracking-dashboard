@@ -1,178 +1,159 @@
-<section class="max-w-7xl w-full h-auto z-50">
-  <div class="grid grid-cols-4 gap-8 font-rubik">
-    <div class="col-span-1">
-      <div class="bg-cstm-primary-blue p-8 rounded-xl">
-        <img
-          src="assets/image-jeremy.png"
-          alt="Jememy"
-          width="75px"
-          height="75px"
-          class="border-2 border-white rounded-full"
-        />
-        <div class="mt-10 mb-20">
+<script>
+  import dashboardData from '../../data.json'
+
+  let selectedTimeFrame = 'weekly'
+  let readableTimeFrame = 'Week'
+
+  const setTimeFrame = (e) => {
+    let timeFrame = e.target.value
+
+    switch (timeFrame) {
+      case 'daily':
+        selectedTimeFrame = 'daily'
+        readableTimeFrame = convertToReadableTimeFrame(timeFrame)
+        break
+      case 'weekly':
+        selectedTimeFrame = 'weekly'
+        readableTimeFrame = convertToReadableTimeFrame(timeFrame)
+        break
+      case 'monthly':
+        selectedTimeFrame = 'monthly'
+        readableTimeFrame = convertToReadableTimeFrame(timeFrame)
+        break
+    }
+  }
+
+  const convertToReadableTimeFrame = (timeFrame) => {
+    switch (timeFrame) {
+      case 'daily':
+        return 'Day'
+      case 'weekly':
+        return 'Week'
+      case 'monthly':
+        return 'Month'
+    }
+  }
+
+  const getSvgPath = (activityTitle) => {
+    switch (activityTitle) {
+      case 'Work':
+        return '/assets/icon-work.svg'
+      case 'Play':
+        return '/assets/icon-play.svg'
+      case 'Study':
+        return '/assets/icon-study.svg'
+      case 'Exercise':
+        return '/assets/icon-exercise.svg'
+      case 'Social':
+        return '/assets/icon-social.svg'
+      case 'Self Care':
+        return '/assets/icon-self-care.svg'
+    }
+  }
+
+  const getSvgBackgroundColor = (activityTitle) => {
+    switch (activityTitle) {
+      case 'Work':
+        return 'bg-cstm-primary-light-red-work'
+      case 'Play':
+        return 'bg-cstm-primary-soft-blue-play'
+      case 'Study':
+        return 'bg-cstm-primary-light-red-study'
+      case 'Exercise':
+        return 'bg-cstm-primary-lime-green-exercise'
+      case 'Social':
+        return 'bg-cstm-primary-violet-social'
+      case 'Self Care':
+        return 'bg-cstm-primary-soft-orange-self-care'
+    }
+  }
+</script>
+
+<div class="text-white font-rubik">
+  <div class="grid grid-cols-1">
+    <!-- Main col 1 -->
+    <div class="mb-6">
+      <div
+        class="bg-cstm-primary-blue flex items-center p-10 gap-5 rounded-2xl relative top-3"
+      >
+        <div>
+          <img
+            src="/assets/image-jeremy.png"
+            alt="Jeremy"
+            class="w-20 border-4 border-white rounded-full"
+          />
+        </div>
+        <div>
           <p class="text-cstm-neutral-pale-blue">Report for</p>
-          <p class="text-5xl text-white font-light">Jeremy Robson</p>
+          <p class="text-3xl">Jeremy Robson</p>
         </div>
       </div>
-      <div class="bg-cstm-neutral-dark-blue p-8 rounded-b-xl">
-        <ul class="text-cstm-neutral-pale-blue mt-5 space-y-5 ">
-          <li>Daily</li>
-          <li>Weekly</li>
-          <li>Monthly</li>
-        </ul>
+      <div
+        class="flex justify-between bg-cstm-neutral-dark-blue px-10 pt-10 pb-6 rounded-b-2xl"
+      >
+        <button
+          value="daily"
+          on:click|preventDefault={setTimeFrame}
+          class={`${
+            selectedTimeFrame === 'daily'
+              ? 'text-white'
+              : 'text-cstm-neutral-pale-blue'
+          }`}>Daily</button
+        >
+        <button
+          value="weekly"
+          on:click|preventDefault={setTimeFrame}
+          class={`${
+            selectedTimeFrame === 'weekly'
+              ? 'text-white'
+              : 'text-cstm-neutral-pale-blue'
+          }`}>Weekly</button
+        >
+        <button
+          value="monthly"
+          on:click|preventDefault={setTimeFrame}
+          class={`${
+            selectedTimeFrame === 'monthly'
+              ? 'text-white'
+              : 'text-cstm-neutral-pale-blue'
+          }`}>Monthly</button
+        >
       </div>
     </div>
-    <div class="text-white col-span-3 grid grid-cols-3 gap-8">
-      <!-- Small Grid 1 -->
-      <div class="relative">
+    <!-- Main col 2 -->
+    {#each dashboardData as dataItem}
+      <div class="rounded-xl">
+        <!-- SVG with background div -->
         <div
-          class="bg-cstm-primary-light-red-work rounded-t-xl flex justify-end items-center px-5 h-1/2 relative overflow-hidden"
+          class={`${getSvgBackgroundColor(
+            dataItem.title
+          )} rounded-t-2xl px-5 overflow-hidden flex justify-end items-center h-20`}
         >
           <img
-            src="assets/icon-work.svg"
-            alt="work icon"
-            class="absolute -top-2"
+            src={getSvgPath(dataItem.title)}
+            alt={dataItem.title}
+            width="100"
           />
         </div>
+        <!-- Content div -->
         <div
-          class="bg-cstm-neutral-dark-blue rounded-xl p-8 w-full absolute top-12"
+          class="bg-cstm-neutral-dark-blue p-8 flex flex-col gap-5 rounded-2xl relative bottom-7"
         >
           <div class="flex justify-between items-center">
-            <p>Work</p>
-            <img src="assets/icon-ellipsis.svg" alt="ellipsis icon" />
+            <p class="text-xl font-bold">{dataItem.title}</p>
+            <img src="/assets/icon-ellipsis.svg" alt="ellipsis icon" />
           </div>
-          <div class="mt-8">
-            <p class="text-6xl font-light">32hrs</p>
-            <p class="text-cstm-neutral-pale-blue mt-3">Last Week - 36hrs</p>
-          </div>
-        </div>
-      </div>
-      <!-- Small Grid 2 -->
-      <div class="relative">
-        <div
-          class="bg-cstm-primary-soft-blue-play rounded-t-xl flex justify-end items-center px-5 h-1/2 relative overflow-hidden"
-        >
-          <img
-            src="assets/icon-play.svg"
-            alt="play icon"
-            class="absolute -top-2"
-          />
-        </div>
-        <div
-          class="bg-cstm-neutral-dark-blue rounded-xl p-8 w-full absolute top-12"
-        >
           <div class="flex justify-between items-center">
-            <p>Play</p>
-            <img src="assets/icon-ellipsis.svg" alt="ellipsis icon" />
-          </div>
-          <div class="mt-8">
-            <p class="text-6xl font-light">10hrs</p>
-            <p class="text-cstm-neutral-pale-blue mt-3">Last Week - 8hrs</p>
-          </div>
-        </div>
-      </div>
-      <!-- Small Grid 3 -->
-      <div>
-        <!-- <div class="relative">
-          <div
-            class="bg-cstm-primary-light-red-study rounded-t-xl flex justify-end px-5 h-16 relative overflow-hidden"
-          >
-            <img
-              src="assets/icon-study.svg"
-              alt="study icon"
-              class="absolute -top-3"
-            />
-          </div>
-          <div
-            class="bg-cstm-neutral-dark-blue rounded-xl p-8 absolute w-full top-11"
-          >
-            <div class="flex justify-between items-center">
-              <p>Study</p>
-              <img src="assets/icon-ellipsis.svg" alt="ellipsis icon" />
-            </div>
-            <div class="mt-8">
-              <p class="text-6xl font-light">4hrs</p>
-              <p class="text-cstm-neutral-pale-blue mt-3">Last Week - 7hrs</p>
-            </div>
-          </div>
-        </div> -->
-      </div>
-      <!-- Small Grid 4 -->
-      <div class="relative">
-        <div
-          class="bg-cstm-primary-lime-green-exercise rounded-t-xl flex justify-end items-center px-5 h-1/2 relative overflow-hidden"
-        >
-          <img
-            src="assets/icon-exercise.svg"
-            alt="exercise icon"
-            class="absolute top-0"
-          />
-        </div>
-        <div
-          class="bg-cstm-neutral-dark-blue rounded-xl p-8 w-full absolute top-12"
-        >
-          <div class="flex justify-between items-center">
-            <p>Exercise</p>
-            <img src="assets/icon-ellipsis.svg" alt="ellipsis icon" />
-          </div>
-          <div class="mt-8">
-            <p class="text-6xl font-light">4hrs</p>
-            <p class="text-cstm-neutral-pale-blue mt-3">Last Week - 5hrs</p>
+            <p class="font-light text-4xl">
+              {dataItem.timeframes[selectedTimeFrame].current}hrs
+            </p>
+            <p class="text-cstm-neutral-pale-blue">
+              Last {readableTimeFrame} - {dataItem.timeframes[selectedTimeFrame]
+                .previous}hrs
+            </p>
           </div>
         </div>
       </div>
-      <!-- Small Grid 5 -->
-      <div>
-        <!-- <div class="relative">
-          <div
-            class="bg-cstm-primary-violet-social rounded-t-xl flex justify-end px-5 h-16 relative overflow-hidden"
-          >
-            <img
-              src="assets/icon-social.svg"
-              alt="social icon"
-              class="absolute -top-3"
-            />
-          </div>
-          <div
-            class="bg-cstm-neutral-dark-blue rounded-xl p-8 absolute w-full top-11"
-          >
-            <div class="flex justify-between items-center">
-              <p>Social</p>
-              <img src="assets/icon-ellipsis.svg" alt="ellipsis icon" />
-            </div>
-            <div class="mt-8">
-              <p class="text-6xl font-light">5hrs</p>
-              <p class="text-cstm-neutral-pale-blue mt-3">Last Week - 10hrs</p>
-            </div>
-          </div>
-        </div> -->
-      </div>
-      <!-- Small Grid 6 -->
-      <div>
-        <!-- <div class="relative">
-          <div
-            class="bg-cstm-primary-soft-orange-self-care rounded-t-xl flex justify-end px-5 h-16 relative overflow-hidden"
-          >
-            <img
-              src="assets/icon-self-care.svg"
-              alt="self care icon"
-              class="absolute -top-3"
-            />
-          </div>
-          <div
-            class="bg-cstm-neutral-dark-blue rounded-xl p-8 absolute w-full top-11"
-          >
-            <div class="flex justify-between items-center">
-              <p>Self Care</p>
-              <img src="assets/icon-ellipsis.svg" alt="ellipsis icon" />
-            </div>
-            <div class="mt-8">
-              <p class="text-6xl font-light">2hrs</p>
-              <p class="text-cstm-neutral-pale-blue mt-3">Last Week - 2hrs</p>
-            </div>
-          </div>
-        </div> -->
-      </div>
-    </div>
+    {/each}
   </div>
-</section>
+</div>
