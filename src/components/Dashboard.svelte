@@ -69,12 +69,13 @@
   }
 </script>
 
-<div class="text-white font-rubik">
-  <div class="grid grid-cols-1">
-    <!-- Main col 1 -->
-    <div class="mb-6">
+<div class="text-white font-rubik md:container md:mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-4 md:gap-x-8">
+    <!-- Main grid col 1 -->
+    <div class="mb-6 row-span-2 md:h-full">
+      <!-- Person info div -->
       <div
-        class="bg-cstm-primary-blue flex items-center p-10 gap-5 rounded-2xl relative top-3"
+        class="bg-cstm-primary-blue flex md:flex-col items-center md:items-start p-10 gap-5 rounded-2xl relative top-3 md:pb-28"
       >
         <div>
           <img
@@ -83,13 +84,16 @@
             class="w-20 border-4 border-white rounded-full"
           />
         </div>
-        <div>
+        <div class="md:pt-5">
           <p class="text-cstm-neutral-pale-blue">Report for</p>
-          <p class="text-3xl">Jeremy Robson</p>
+          <p class="text-3xl md:text-6xl lg:text-5xl font-light">
+            Jeremy Robson
+          </p>
         </div>
       </div>
+      <!-- Time frame selection div -->
       <div
-        class="flex justify-between bg-cstm-neutral-dark-blue px-10 pt-10 pb-6 rounded-b-2xl"
+        class="flex md:flex-col justify-between md:items-start md:space-y-6 bg-cstm-neutral-dark-blue px-10 pt-10 pb-6 rounded-b-2xl"
       >
         <button
           value="daily"
@@ -98,7 +102,7 @@
             selectedTimeFrame === 'daily'
               ? 'text-white'
               : 'text-cstm-neutral-pale-blue'
-          }`}>Daily</button
+          } hover:text-white`}>Daily</button
         >
         <button
           value="weekly"
@@ -107,7 +111,7 @@
             selectedTimeFrame === 'weekly'
               ? 'text-white'
               : 'text-cstm-neutral-pale-blue'
-          }`}>Weekly</button
+          } hover:text-white`}>Weekly</button
         >
         <button
           value="monthly"
@@ -116,11 +120,11 @@
             selectedTimeFrame === 'monthly'
               ? 'text-white'
               : 'text-cstm-neutral-pale-blue'
-          }`}>Monthly</button
+          } hover:text-white`}>Monthly</button
         >
       </div>
     </div>
-    <!-- Main col 2 -->
+    <!-- Main grid col 2 -->
     {#each dashboardData as dataItem}
       <div class="rounded-xl">
         <!-- SVG with background div -->
@@ -137,14 +141,20 @@
         </div>
         <!-- Content div -->
         <div
-          class="bg-cstm-neutral-dark-blue p-8 flex flex-col gap-5 rounded-2xl relative bottom-7"
+          class="bg-cstm-neutral-dark-blue hover:bg-cstm-neutral-desaturated-blue cursor-pointer p-8 flex flex-col gap-5 md:gap-10 rounded-2xl relative bottom-7"
         >
           <div class="flex justify-between items-center">
             <p class="text-xl font-bold">{dataItem.title}</p>
-            <img src="/assets/icon-ellipsis.svg" alt="ellipsis icon" />
+            <img
+              src="/assets/icon-ellipsis.svg"
+              alt="ellipsis icon"
+              class="cursor-pointer"
+            />
           </div>
-          <div class="flex justify-between items-center">
-            <p class="font-light text-4xl">
+          <div
+            class="flex md:flex-col justify-between items-center md:items-start md:gap-5"
+          >
+            <p class="font-light text-4xl md:text-6xl">
               {dataItem.timeframes[selectedTimeFrame].current}hrs
             </p>
             <p class="text-cstm-neutral-pale-blue">
