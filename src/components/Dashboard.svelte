@@ -86,9 +86,9 @@
         </div>
         <div class="md:pt-5">
           <p class="text-cstm-neutral-pale-blue">Report for</p>
-          <p class="text-3xl md:text-6xl lg:text-5xl font-light">
+          <h1 class="text-3xl md:text-6xl lg:text-5xl font-light">
             Jeremy Robson
-          </p>
+          </h1>
         </div>
       </div>
       <!-- Time frame selection div -->
